@@ -3,11 +3,11 @@ import json
 
 import helper
 import variables
+import context as c
 
 
 def test_create_valid_board():
     random_name = "board_0"
-
     query_params = {
         "name": random_name
     }
@@ -29,14 +29,18 @@ def test_prefs_card_covers_false():
 
 
 def test_clone_board():
+    helper.delete_default_organization()
+    helper.create_board({"prefs_background": "yellow"})
     random_name = "board_to_be_cloned_1"
     query_params = {
         "name": random_name,
-        "prefs_background": "red"
+        "prefs_background": "blue",
+        "idBoardSource": c.get_context("based_board_id")
     }
     query_params.update(variables.authorization)
+
     response = requests.post(
         variables.board_url, params=query_params
     )
-
     assert response.status_code == 200
+    assert json.loads(response.text)["background"] == "yellow"

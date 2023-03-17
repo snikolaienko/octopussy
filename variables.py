@@ -1,4 +1,5 @@
 board_url = "https://api.trello.com/1/boards/"
+organizations_url = "https://api.trello.com/1/organizations"
 
 authorization = {
     "key": "bae166012ae2cf255c73d6d777c61db0",
